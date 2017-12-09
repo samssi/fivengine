@@ -4,8 +4,8 @@ import { selection } from "./state"
 
 const verticalBoxes = 10;
 const horizontalBoxes = 10;
-const defaultElementWidth = screenSettings.screenWidth / horizontalBoxes;
-const defaultElementHeight = screenSettings.screenHeight / verticalBoxes;
+const defaultElementWidth = Math.round(screenSettings.screenWidth / horizontalBoxes);
+const defaultElementHeight = Math.round(screenSettings.screenHeight / verticalBoxes);
 
 const selected = (rowElement, columnElement) => {
     return selection.row === rowElement && selection.column === columnElement;
@@ -26,6 +26,12 @@ const renderRow = (context, columnElement) => {
     R.times((rowElement) => renderElement(context, rowElement, columnElement), horizontalBoxes);
 }
 
+export const select = (mouseX, mouseY) => {
+    selection.row = Math.floor(mouseX / defaultElementWidth);
+    selection.column = Math.floor(mouseY / defaultElementHeight);
+}
+
 export const renderGrid = (context) => {
-    R.times((columnElement) => renderRow(context, columnElement), verticalBoxes)
+    setInterval(() => R.times((columnElement) => renderRow(context, columnElement), verticalBoxes), 100);
+    
 }
