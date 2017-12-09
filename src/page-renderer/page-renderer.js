@@ -24,11 +24,10 @@ export const fixedCanvas = (width, height) => {
     return canvas;
 }
 
-export const renderCanvas = (canvas) => {
+export const initCanvas = (canvas) => {
     console.log("Starting 5gine")
     body.style.backgroundColor = "white";
     renderCss();
     rootElement.appendChild(canvas);
-    return canvas;
 }
 

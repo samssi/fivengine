@@ -1,19 +1,23 @@
 import * as pageRenderer from "./page-renderer/page-renderer";
+import { screenSettings } from "./settings/settings";
+import { renderGrid } from "./square-grid/square-grid"
 
-const canvas = pageRenderer.renderCanvas(pageRenderer.fixedCanvas(800, 600));
-const context = canvas.getContext("2d");
-const color1 = "#ccffff";
-const color2 = "black";
-
-const draw = (color) => {
-    context.fillStyle = color;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    return color;
+const createCanvas = () => {
+    const canvas = pageRenderer.fixedCanvas(screenSettings.screenWidth, screenSettings.screenHeight);
+    pageRenderer.initCanvas(canvas);
+    return canvas;
 }
 
-let current = draw(color1);
+const draw = (canvas) => {
+    const context = canvas.getContext("2d");
+    context.fillStyle = screenSettings.bgColor;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    return context;
+}
 
-setInterval(() => { 
-    console.log(current);
-    current === color1 ? current = draw(color2) : current = draw(color1);
-}, 1000);
+const canvas = createCanvas();
+//setInterval(() => { draw(canvas);}, 1000);
+
+const context = draw(canvas);
+renderGrid(context);
+
