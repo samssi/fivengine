@@ -16,8 +16,17 @@ const mouseEventRenderer = () => {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    grid.select(x, y);
+    grid.mouseSelect(x, y);
     renderGrid(canvas);
 }
+
+const aiEventRenderer = () => {
+    setInterval(() => {
+        grid.aiMove();
+        renderGrid(canvas);
+    }, 170);
+}
+
+aiEventRenderer();
 
 document.body.addEventListener('mousemove', mouseEventRenderer, true); 
