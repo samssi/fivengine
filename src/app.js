@@ -1,6 +1,6 @@
 import * as pageRenderer from "./page-renderer/page-renderer";
 import { screenSettings } from "./settings/settings";
-import { renderGrid } from "./square-grid/square-grid"
+import { renderGrid } from "./responsive-square-grid/responsive-square-grid"
 
 const createCanvas = () => {
     const canvas = pageRenderer.fixedCanvas(screenSettings.screenWidth, screenSettings.screenHeight);

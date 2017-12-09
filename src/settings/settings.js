@@ -1,5 +1,5 @@
 export const screenSettings = {
-    screenWidth: 1024,
+    screenWidth: 800,
     screenHeight: 600,
     bgColor: "cyan"
 }
