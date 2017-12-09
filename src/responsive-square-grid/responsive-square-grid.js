@@ -32,6 +32,5 @@ export const select = (mouseX, mouseY) => {
 }
 
 export const renderGrid = (context) => {
-    setInterval(() => R.times((columnElement) => renderRow(context, columnElement), verticalBoxes), 100);
-    
+    R.times((columnElement) => renderRow(context, columnElement), verticalBoxes);
 }

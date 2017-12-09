@@ -1,6 +1,7 @@
 import * as pageRenderer from "./page-renderer/page-renderer";
 import { screenSettings } from "./settings/settings";
 import * as grid from "./responsive-square-grid/responsive-square-grid"
+import { renderGrid } from "./responsive-square-grid/responsive-square-grid";
 
 const createCanvas = () => {
     const canvas = pageRenderer.fixedCanvas(screenSettings.screenWidth, screenSettings.screenHeight);
@@ -24,6 +25,9 @@ const mouseClick = () => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     grid.select(x, y);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    renderGrid(context);
 }
 
-document.body.addEventListener('click', mouseClick, true); 
+document.body.addEventListener('mousemove', mouseClick, true); 
