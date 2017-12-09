@@ -9,25 +9,15 @@ const createCanvas = () => {
     return canvas;
 }
 
-const createContext = (canvas) => {
-    const context = canvas.getContext("2d");
-    context.fillStyle = screenSettings.bgColor;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    return context;
-}
-
 const canvas = createCanvas();
-const context = createContext(canvas);
-grid.renderGrid(context);
+grid.renderGrid(canvas);
 
-const mouseClick = () => {
+const mouseEventRenderer = () => {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     grid.select(x, y);
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.beginPath();
-    renderGrid(context);
+    renderGrid(canvas);
 }
 
-document.body.addEventListener('mousemove', mouseClick, true); 
+document.body.addEventListener('mousemove', mouseEventRenderer, true); 
