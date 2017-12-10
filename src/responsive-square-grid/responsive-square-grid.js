@@ -2,8 +2,8 @@ import * as R from "ramda";
 import { screenSettings } from "../settings/settings";
 import { selection } from "./state"
 
-const verticalBoxes = 50;
-const horizontalBoxes = 50;
+const verticalBoxes = 5;
+const horizontalBoxes = 5;
 const defaultElementWidth = Math.round(screenSettings.screenWidth / horizontalBoxes);
 const defaultElementHeight = Math.round(screenSettings.screenHeight / verticalBoxes);
 
@@ -39,19 +39,30 @@ const renderRow = (context, columnElement) => {
 }
 
 export const aiMove = () => {
-    const columnMove = Math.floor(Math.random() * 2);
-    const rowMove = Math.floor(Math.random() * 2);
-    if (columnMove === 1 && selection.aiColumn > 0) {
-        selection.aiColumn = selection.aiColumn - 1;
+    const columnMove = Math.floor(Math.random() * 3);
+    const rowMove = Math.floor(Math.random() * 3);
+    if (columnMove === 1) {
+        const nextStep = selection.aiColumn - 1;
+        selection.aiColumn = zeroBorderOverride(nextStep);
     } 
     else if (selection.aiColumn < horizontalBoxes - 1) {
         selection.aiColumn = selection.aiColumn + 1;
     }
-    if (rowMove === 1 && selection.aiRow > 0) {
-        selection.aiRow = selection.aiRow - 1
+    if (rowMove === 1) {
+        const nextStep = selection.aiRow - 1;
+        selection.aiRow = zeroBorderOverride(nextStep);
     }
     else if (selection.aiRow < verticalBoxes - 1) {
         selection.aiRow = selection.aiRow + 1;
+    }
+}
+
+const zeroBorderOverride = (position) => {
+    if (position < 0) {
+        return position + 1;
+    }
+    else {
+        return position;
     }
 }
 
