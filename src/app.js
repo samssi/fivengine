@@ -24,7 +24,7 @@ const aiEventRenderer = () => {
     setInterval(() => {
         grid.aiMove();
         renderGrid(canvas);
-    }, 170);
+    }, 50);
 }
 
 aiEventRenderer();
