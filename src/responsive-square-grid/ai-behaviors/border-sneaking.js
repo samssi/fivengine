@@ -29,7 +29,7 @@ export const aiMove = () => {
 }
 
 const reachedTop = (position) => position < 0
-const reachedRight = (position) => position > columnMax
+const reachedRight = (position) => reachedDown(position)
 const reachedDown = (position) => position > columnMax
-const reachedLeft = (position) => position < 0
+const reachedLeft = (position) => reachedTop(position)
 
