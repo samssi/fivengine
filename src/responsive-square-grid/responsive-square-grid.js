@@ -45,7 +45,7 @@ export const aiMove = () => {
         const nextStep = selection.aiColumn - 1;
         selection.aiColumn = zeroBorderOverride(nextStep);
     } 
-    else if (selection.aiColumn < horizontalBoxes - 1) {
+    else {
         const nextStep = selection.aiColumn + 1
         const max = horizontalBoxes - 1;
         selection.aiColumn = maxBorderOverride(nextStep, max);
@@ -54,10 +54,10 @@ export const aiMove = () => {
         const nextStep = selection.aiRow - 1;
         selection.aiRow = zeroBorderOverride(nextStep);
     }
-    else if (selection.aiRow < verticalBoxes - 1) {
+    else {
         const nextStep = selection.aiRow + 1;
         const max = verticalBoxes -1;
-        selection.aiRow = zeroBorderOverride(nextStep, max);
+        selection.aiRow = maxBorderOverride(nextStep, max);
     }
 }
 
