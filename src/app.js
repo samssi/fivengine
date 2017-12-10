@@ -1,7 +1,7 @@
 import * as pageRenderer from "./page-renderer/page-renderer";
 import { screenSettings } from "./settings/settings";
 import * as grid from "./responsive-square-grid/responsive-square-grid"
-import { renderGrid } from "./responsive-square-grid/responsive-square-grid";
+import * as freeRoaming from "./responsive-square-grid/ai-behaviors/free-roaming"
 
 const createCanvas = () => {
     const canvas = pageRenderer.fixedCanvas(screenSettings.screenWidth, screenSettings.screenHeight);
@@ -17,14 +17,14 @@ const mouseEventRenderer = () => {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     grid.mouseSelect(x, y);
-    renderGrid(canvas);
+    grid.renderGrid(canvas);
 }
 
 const aiEventRenderer = () => {
     setInterval(() => {
-        grid.aiMove();
-        renderGrid(canvas);
-    }, 50);
+        freeRoaming.aiMove();
+        grid.renderGrid(canvas);
+    }, 200);
 }
 
 aiEventRenderer();

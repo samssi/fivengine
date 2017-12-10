@@ -1,11 +1,9 @@
 import * as R from "ramda";
-import { screenSettings } from "../settings/settings";
+import { screenSettings, gridSettings } from "../settings/settings";
 import { selection } from "./state"
 
-const verticalBoxes = 30;
-const horizontalBoxes = 30;
-const defaultElementWidth = Math.round(screenSettings.screenWidth / horizontalBoxes);
-const defaultElementHeight = Math.round(screenSettings.screenHeight / verticalBoxes);
+const defaultElementWidth = Math.round(screenSettings.screenWidth / gridSettings.horizontalBoxes);
+const defaultElementHeight = Math.round(screenSettings.screenHeight / gridSettings.verticalBoxes);
 
 const mouseSelected = (rowElement, columnElement) => selection.mouseRow === rowElement && selection.mouseColumn === columnElement;
 const aiSelected = (rowElement, columnElement) => selection.aiRow === rowElement && selection.aiColumn === columnElement;
@@ -35,44 +33,7 @@ const colorPicker = (context, rowElement, columnElement) => {
 }
 
 const renderRow = (context, columnElement) => {
-    R.times((rowElement) => renderElement(context, rowElement, columnElement), horizontalBoxes);
-}
-
-export const aiMove = () => {
-    const columnMove = Math.floor(Math.random() * 3);
-    const rowMove = Math.floor(Math.random() * 3);
-    if (columnMove === 1) {
-        const nextStep = selection.aiColumn - 1;
-        selection.aiColumn = zeroBorderOverride(nextStep);
-    }
-    else if (columnMove === 2) {
-        const nextStep = selection.aiColumn + 1
-        const max = horizontalBoxes - 1;
-        selection.aiColumn = maxBorderOverride(nextStep, max);
-    }
-    if (rowMove === 1) {
-        const nextStep = selection.aiRow - 1;
-        selection.aiRow = zeroBorderOverride(nextStep);
-    }   
-    else if (rowMove === 2) {   
-        const nextStep = selection.aiRow + 1;
-        const max = verticalBoxes - 1;
-        selection.aiRow = maxBorderOverride(nextStep, max);
-    }
-}
-
-const maxBorderOverride = (position, max) => {
-    if (position > max) {
-        return position - 1;
-    }
-    return position;
-}
-
-const zeroBorderOverride = (position) => {
-    if (position < 0) {
-        return position + 1;
-    }
-    return position;
+    R.times((rowElement) => renderElement(context, rowElement, columnElement), gridSettings.horizontalBoxes);
 }
 
 export const mouseSelect = (mouseX, mouseY) => {
@@ -84,5 +45,5 @@ export const renderGrid = (canvas) => {
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
-    R.times((columnElement) => renderRow(context, columnElement), verticalBoxes);
+    R.times((columnElement) => renderRow(context, columnElement), gridSettings.verticalBoxes);
 }
