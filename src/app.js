@@ -22,7 +22,10 @@ const mouseMoveEvent = () => {
     grid.renderGrid(canvas);
 }
 
-const mouseClickEvent = () => {
+let aiMode = 1;
+let aiFunction = borderSneaking;
+
+const mouseClickEventMoveToPosition = () => {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
@@ -30,9 +33,20 @@ const mouseClickEvent = () => {
     state.selection.aiRow = grid.mouseRow(x);
 }
 
+const mouseClickEvent = () => {
+    if (aiMode === 1) {
+        aiFunction = freeRoaming;
+        aiMode = 2;
+    }
+    else if (aiMode === 2) {
+        aiFunction = borderSneaking;
+        aiMode = 1;
+    }
+}
+
 const aiEventRenderer = () => {
     setInterval(() => {
-        borderSneaking.aiMove();
+        aiFunction.aiMove();
         grid.renderGrid(canvas);
     }, 200);
 }
