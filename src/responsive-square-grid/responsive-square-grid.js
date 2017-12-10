@@ -37,9 +37,12 @@ const renderRow = (context, columnElement) => {
 }
 
 export const mouseSelect = (mouseX, mouseY) => {
-    selection.mouseRow = Math.floor(mouseX / defaultElementWidth);
-    selection.mouseColumn = Math.floor(mouseY / defaultElementHeight);
+    selection.mouseRow = mouseRow(mouseX);
+    selection.mouseColumn = mouseColumn(mouseY);
 }
+
+export const mouseRow = (mouseX) => Math.floor(mouseX / defaultElementWidth);
+export const mouseColumn = (mouseY) => Math.floor(mouseY / defaultElementHeight);
 
 export const renderGrid = (canvas) => {
     const context = canvas.getContext("2d");
