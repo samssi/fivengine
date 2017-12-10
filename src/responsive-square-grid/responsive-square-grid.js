@@ -2,8 +2,8 @@ import * as R from "ramda";
 import { screenSettings } from "../settings/settings";
 import { selection } from "./state"
 
-const verticalBoxes = 20;
-const horizontalBoxes = 20;
+const verticalBoxes = 50;
+const horizontalBoxes = 50;
 const defaultElementWidth = Math.round(screenSettings.screenWidth / horizontalBoxes);
 const defaultElementHeight = Math.round(screenSettings.screenHeight / verticalBoxes);
 
@@ -13,23 +13,24 @@ const aiSelected = (rowElement, columnElement) => selection.aiRow === rowElement
 const renderElement = (context, rowElement, columnElement) => {
     const left = defaultElementWidth * rowElement;
     const top = defaultElementHeight * columnElement;
-    context.lineWidth = "1";
     context.strokeStyle = "blue";
-    context.rect(left, top, defaultElementWidth, defaultElementHeight);
-    colorPicker(context, rowElement, columnElement);
-    context.fillRect(left, top, defaultElementWidth, defaultElementHeight);
+    const color = colorPicker(context, rowElement, columnElement);
+    if (color) {
+        context.fillStyle = color; 
+        context.fillRect(left, top, defaultElementWidth, defaultElementHeight);
+    }
     context.stroke();
 }
 
 const colorPicker = (context, rowElement, columnElement) => {
     if (mouseSelected(rowElement, columnElement)) {
-        context.fillStyle = "blue"; 
+        return "blue"; 
     }
     else if(aiSelected(rowElement, columnElement)) {
-         context.fillStyle = "red";
+         return "red";
     }
     else {
-        context.fillStyle = "black";
+        return undefined;
     }
 }
 
